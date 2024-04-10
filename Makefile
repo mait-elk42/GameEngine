@@ -12,21 +12,25 @@
 
 # CC= c++
 CC= /mnt/c/MinGW/bin/c++.exe
-CFLAGS= 
-SRCS= 
+CFLAGS= -I $(INC)
+INC = include/
+SRCS= srcs/glad.cpp srcs/GameContext.cpp 
 SRCS_O= $(SRCS:.cpp=.o)
 NAME= GameEngine
 
 all: $(NAME)
 
 $(NAME): $(SRCS_O) $(NAME).cpp
-	$(CC) $(CFLAGS) $(NAME).cpp $(SRCS_O) -L ./lib -lglfw3 -lgdi32 -o $(NAME)
+	$(CC) $(CFLAGS) $(NAME).cpp $(SRCS_O) -L ./lib -lglfw3 -lgdi32 -lopengl32 -o $(NAME).exe
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(SRCS_O)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME).exe
 
 re: fclean all
 
