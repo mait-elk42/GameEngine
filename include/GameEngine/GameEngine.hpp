@@ -17,5 +17,6 @@
 #include <string>
 #include <GameEngine/GameContext.hpp>
 #include <GameEngine/Shader.hpp>
+#include <GameEngine/GPUMemory.hpp>
 
 #endif

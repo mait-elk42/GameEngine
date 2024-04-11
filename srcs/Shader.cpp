@@ -14,8 +14,7 @@
 
 ShaderProgram::ShaderProgram()
 {
-	this->program = glCreateProgram();
-	LOG("SHADER PROGRAM CREATED");
+	
 }
 
 ShaderProgram::~ShaderProgram()
@@ -23,7 +22,14 @@ ShaderProgram::~ShaderProgram()
 	
 }
 
-void ShaderProgram::AttachShader(GLuint ShaderType, std::string source_code)
+ShaderProgram &ShaderProgram::Create()
+{
+	this->program = glCreateProgram();
+	LOG("SHADER PROGRAM CREATED");
+	return (*this);
+}
+
+ShaderProgram &ShaderProgram::AttachShader(GLuint ShaderType, std::string source_code)
 {
 	GLuint shader = glCreateShader(ShaderType);
 	char	*src = (char *)source_code.c_str();
@@ -32,6 +38,7 @@ void ShaderProgram::AttachShader(GLuint ShaderType, std::string source_code)
     glAttachShader(this->program, shader);
     glLinkProgram(this->program);
     glDeleteShader(shader);
+	return (*this);
 }
 
 void ShaderProgram::Use()

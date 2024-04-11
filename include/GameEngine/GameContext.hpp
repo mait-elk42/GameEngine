@@ -15,24 +15,29 @@
 
 #define LOG(v) std::cout << v << std::endl;
 
+#include <GameEngine/Shader.hpp>
+#include <GameEngine/GPUMemory.hpp>
 #include <iostream>
 #include <string>
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-class GameContext{
+class GameContext {
 private:
     GLFWwindow	*window_ptr;
 public:
-	// GameContext(int width, int height, std::string title);
 	GameContext();
 	~GameContext();
 	int	Window_Is_Alive();
-	GameContext	Init();
-	GameContext WindowSwapBuffers();
-	GameContext WindowHint(int hint, int value);
-	GameContext	OpenNewWindow(int width, int height, std::string title);
+	GameContext	&Init();
+	GameContext &WindowSwapBuffers();
+	GameContext &WindowHint(int hint, int value);
+	GameContext	&WinSetViewPort(GLint x, GLint y, GLsizei width, GLsizei height);
+	GameContext	&OpenNewWindow(int width, int height, std::string title);
+
+	ShaderProgram 	shader_program;
+	GPUMemory		gpu_memory;
 };
 
 #endif

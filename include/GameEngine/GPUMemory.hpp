@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Shader.hpp                                         :+:      :+:    :+:   */
+/*   VAO.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-elk <mait-elk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 07:42:08 by mait-elk          #+#    #+#             */
-/*   Updated: 2024/04/11 07:42:08 by mait-elk         ###   ########.fr       */
+/*   Created: 2024/04/11 13:26:02 by mait-elk          #+#    #+#             */
+/*   Updated: 2024/04/11 13:26:02 by mait-elk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHADER_HPP
-#define SHADER_HPP
+#ifndef GPUMEMORY_HPP
+#define GPUMEMORY_HPP
 
 #include <iostream>
 #include <string>
@@ -21,15 +21,19 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-class ShaderProgram {
+class GPUMemory {
 private:
-	GLuint program;
 public:
-	ShaderProgram();
-	~ShaderProgram();
-	ShaderProgram 	&Create();
-	ShaderProgram	&AttachShader(GLuint ShaderType, std::string source_code);
-	void 			Use();
+	GLuint	VBO_ID;
+	GLuint	VAO_ID;
+	GPUMemory();
+	~GPUMemory();
+	GPUMemory	&GenVAO();
+	GPUMemory	&GenVBO();
+	GPUMemory	&BindVAO();
+	GPUMemory	&BindVBO();
+	void		SetData(GLsizeiptr size, void * data, GLenum usage);
+	void		SetAttribute(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, void * pointer);
 };
 
 #endif
