@@ -15,13 +15,13 @@
 int main()
 {
 	GameContext context;
-
 	context.Init()
 		   .WindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3)
 		   .WindowHint(GLFW_CONTEXT_VERSION_MINOR, 3)
 		   .WindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE)
 		   .OpenNewWindow(800, 600, "Game Engine")
 		   .WinSetViewPort(0, 0, 800, 600);
+	
 	context.shader_program.Create()
 		   .AttachShader(GL_VERTEX_SHADER, R"glsl(
 					#version 330 core

@@ -18,5 +18,6 @@
 #include <GameEngine/GameContext.hpp>
 #include <GameEngine/Shader.hpp>
 #include <GameEngine/GPUMemory.hpp>
+#include <GL/glut.h>
 
 #endif
