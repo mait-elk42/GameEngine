@@ -18,10 +18,8 @@
 #include <iostream>
 #include <string>
 
-#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
-// #include <GL/gl.h> YOUR SEARCHING FOR GLBEGIN , ??
 
 class GameContext{
 private:

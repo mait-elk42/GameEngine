@@ -1,4 +1,4 @@
-#include <GameEngine/System/GameContext.hpp>
+#include <GameEngine/GameContext.hpp>
 
 GameContext::GameContext()
 {

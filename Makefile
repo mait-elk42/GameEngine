@@ -14,7 +14,7 @@
 CC= /mnt/c/MinGW/bin/c++.exe
 CFLAGS= -I $(INC)
 INC = include/
-SRCS= srcs/glad.cpp srcs/GameContext.cpp 
+SRCS= srcs/glad.cpp srcs/GameContext.cpp  srcs/Shader.cpp 
 SRCS_O= $(SRCS:.cpp=.o)
 NAME= GameEngine
 

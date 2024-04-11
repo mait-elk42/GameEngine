@@ -29,6 +29,8 @@
 #ifndef _glfw3_h_
 #define _glfw3_h_
 
+#define GLFW_INCLUDE_NONE
+
 #ifdef __cplusplus
 extern "C" {
 #endif
