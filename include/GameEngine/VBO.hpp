@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   VAO.hpp                                            :+:      :+:    :+:   */
+/*   VBO.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-elk <mait-elk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 13:26:02 by mait-elk          #+#    #+#             */
-/*   Updated: 2024/04/11 13:26:02 by mait-elk         ###   ########.fr       */
+/*   Created: 2024/04/12 08:12:44 by mait-elk          #+#    #+#             */
+/*   Updated: 2024/04/12 08:12:44 by mait-elk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GPUMEMORY_HPP
-#define GPUMEMORY_HPP
+#ifndef VBO_H
+#define VBO_H
 
 #include <iostream>
 #include <string>
@@ -21,19 +21,16 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-class GPUMemory {
+class VBO {
 private:
+	GLuint	ID;
 public:
-	GLuint	VBO_ID;
-	GLuint	VAO_ID;
-	GPUMemory();
-	~GPUMemory();
-	GPUMemory	&GenVAO();
-	GPUMemory	&GenVBO();
-	GPUMemory	&BindVAO();
-	GPUMemory	&BindVBO();
-	void		SetData(GLsizeiptr size, void * data, GLenum usage);
-	void		SetAttribute(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, void * pointer);
+	VBO();
+	~VBO();
+	VBO	&Generate(int n);
+	VBO	&Bind(GLenum target);
+	VBO	&InitBuffer(GLenum target, GLsizeiptr size, void * data, GLenum usage);
+	VBO	&SendData(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, void *pointer);
 };
 
 #endif

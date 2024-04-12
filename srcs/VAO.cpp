@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   GameEngine.hpp                                     :+:      :+:    :+:   */
+/*   VAO.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-elk <mait-elk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 12:04:35 by mait-elk          #+#    #+#             */
-/*   Updated: 2024/04/10 12:04:35 by mait-elk         ###   ########.fr       */
+/*   Created: 2024/04/12 08:15:26 by mait-elk          #+#    #+#             */
+/*   Updated: 2024/04/12 08:15:26 by mait-elk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GAME_ENGINE_HPP
-#define GAME_ENGINE_HPP
-
-#include <iostream>
-#include <string>
-#include <GameEngine/GameContext.hpp>
-#include <GameEngine/Shader.hpp>
 #include <GameEngine/VAO.hpp>
-#include <GameEngine/VBO.hpp>
+VAO::VAO()
+{
 
-#endif
+}
+
+VAO::~VAO()
+{
+
+}
+
+VAO	&VAO::Generate(int n)
+{
+	glGenVertexArrays(n, &this->ID);
+	return (*this);
+}
+
+VAO	&VAO::Bind()
+{
+	glBindVertexArray(this->ID);
+	return (*this);
+}
