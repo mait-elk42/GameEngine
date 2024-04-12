@@ -61,13 +61,13 @@ ShaderProgram &ShaderProgram::AttachShader(GLuint ShaderType, std::string source
 	if (!success) {
 		char infoLog[512];
 		glGetShaderInfoLog(shader, 512, NULL, infoLog);
-		LOG ("\033[31mShader Compilation Failed\n[ \n" << infoLog << "]\033[0m");
+		LOG ("\033[31mShader Compiling Failed\n[ \n" << infoLog << "]\033[0m");
 		return (*this);
 	}
     glAttachShader(this->program, shader);
     glLinkProgram(this->program);
     glDeleteShader(shader);
-	LOG ("\033[32m""Shader Compilation Successed""\033[0m");
+	LOG ("\033[32m""Shader Compiling Success""\033[0m");
 	return (*this);
 }
 

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <GameEngine/VAO.hpp>
+
 VAO::VAO()
 {
 
@@ -18,7 +19,7 @@ VAO::VAO()
 
 VAO::~VAO()
 {
-
+	glDeleteVertexArrays(1, &this->ID);
 }
 
 VAO	&VAO::Generate(int n)

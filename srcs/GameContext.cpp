@@ -39,7 +39,6 @@ GameContext	&GameContext::WinSetClearColor(GLchar red, GLchar green, GLchar blue
 	GLfloat	blueNormalized = (GLfloat) ((unsigned char)blue) / 255.0f;
 	GLfloat	alphaNormalized = (GLfloat) ((unsigned char)alpha) / 255.0f;
 
-	LOG (redNormalized  << ":" << greenNormalized << ":" << blueNormalized << ":" << alphaNormalized);
     glClearColor(redNormalized, greenNormalized, blueNormalized, alphaNormalized);
     return (*this);
 }

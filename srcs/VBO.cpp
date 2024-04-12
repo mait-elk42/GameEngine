@@ -19,7 +19,7 @@ VBO::VBO()
 
 VBO::~VBO()
 {
-
+	glDeleteBuffers(1, &this->ID);
 }
 
 VBO	&VBO::Generate(int n)
