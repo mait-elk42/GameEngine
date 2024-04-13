@@ -58,10 +58,18 @@ int main()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUniform3f(glGetUniformLocation(shader_program, "scale"), objscale.x, objscale.y, objscale.z);
-		glUniform3f(glGetUniformLocation(shader_program, "pos"), objpos.x, objpos.y, objpos.z);
+		glUniform3f(glGetUniformLocation(shader_program, "position"), objpos.x, objpos.y, objpos.z);
 		glUniform1f(glGetUniformLocation(shader_program, "angle"), angle);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 		context.WindowSwapBuffers();
+		if (context.KeyStatus(GLFW_KEY_D))
+			objpos.x += 0.01f;
+		if (context.KeyStatus(GLFW_KEY_A))
+			objpos.x += -0.01f;
+		if (context.KeyStatus(GLFW_KEY_W))
+			objpos.y += 0.01f;
+		if (context.KeyStatus(GLFW_KEY_S))
+			objpos.y += -0.01f;
 		glfwPollEvents();
 		angle += 0.01f;
 	}

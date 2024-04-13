@@ -73,3 +73,8 @@ GameContext	&GameContext::WinSetViewPort(GLint x, GLint y, GLsizei width, GLsize
 	glViewport(x, y, width, height);
 	return (*this);
 }
+
+int			GameContext::KeyStatus(int key)
+{
+	return (glfwGetKey(this->window_ptr, key));
+}
