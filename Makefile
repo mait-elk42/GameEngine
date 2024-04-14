@@ -22,7 +22,7 @@ all: $(NAME)
 
 $(NAME): $(SRCS_O) $(NAME).cpp
 	@echo "Compiling Exec File" $(NAME)
-	@$(CC) $(CFLAGS) $(NAME).cpp $(SRCS_O) -L ./lib -lglfw3 -lGLEW -lgdi32 -lopengl32 -lglut32 -o $(NAME).exe
+	@$(CC) $(CFLAGS) $(NAME).cpp $(SRCS_O) -L ./lib -lglfw3 -lGLEW -lgdi32 -lopengl32 -lglut32 -o $(NAME).exe -mwindows
 
 %.bin: %.cpp
 	@echo "Compiling Script" $<
