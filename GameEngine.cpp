@@ -40,26 +40,30 @@ int main()
 		.AttachShaderFromFile(GL_FRAGMENT_SHADER, "Shaders/frag.glsl")
 		.Use();
 	
+
 	GLfloat vertices[] = {
 		0.0f, 0.1f, 0.0f,  // Top Right
-		0.05f, 0.0f, 0.0f,  // Bottom Right
-	   -0.05f, 0.0f, 0.0f,  // Bottom Left
+		0.1f, 0.0f, 0.0f,  // Bottom Right
+	   -0.1f, 0.0f, 0.0f,  // Bottom Left
 	};
-
 	vao.Generate(1).Bind();
 	vbo	.Generate(1).Bind(GL_ARRAY_BUFFER)
 		.InitBuffer(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW)
 		.SendData(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid *)0);
 
-	t_vector3f objscale = { 1.0f, 1.0f, 1.0f };
-	t_vector3f objpos = { 0.2f, 0.2f, 0.2f };
-	float angle = 0.1f;
+	t_vector3f objpos = { 0.3f, 0.1f, 0.0f };
+	t_vector3f objrot = { 0.3f, 0.1f, 0.0f };
+	t_vector3f objscale = { 3.0f, 3.0f, 3.0f };
+	t_vector3f objpivot = { 0.0f, -0.05f, 0.0f };
+	// float angle = 0.0f;
 	while(context.Window_Is_Alive())
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
-		glUniform3f(glGetUniformLocation(shader_program, "scale"), objscale.x, objscale.y, objscale.z);
 		glUniform3f(glGetUniformLocation(shader_program, "position"), objpos.x, objpos.y, objpos.z);
-		glUniform1f(glGetUniformLocation(shader_program, "angle"), angle);
+		glUniform3f(glGetUniformLocation(shader_program, "scale"), objscale.x, objscale.y, objscale.z);
+		glUniform3f(glGetUniformLocation(shader_program, "rotation"), objrot.x, objrot.y, objrot.z);
+		glUniform3f(glGetUniformLocation(shader_program, "pivot"), objpivot.x, objpivot.y, objpivot.z);
+		// glUniform1f(glGetUniformLocation(shader_program, "angle"), angle);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 		context.WindowSwapBuffers();
 		if (context.KeyStatus(GLFW_KEY_D))
@@ -70,8 +74,12 @@ int main()
 			objpos.y += 0.01f;
 		if (context.KeyStatus(GLFW_KEY_S))
 			objpos.y += -0.01f;
+
+		// if (context.KeyStatus(GLFW_KEY_D))
+		// 	angle += -0.02f;
+		// if (context.KeyStatus(GLFW_KEY_A))
+			// angle += -0.02f;
 		glfwPollEvents();
-		angle += 0.01f;
 	}
 	return 0;
 }

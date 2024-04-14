@@ -3,22 +3,24 @@
 layout (location = 0) in vec3 offset;
 
 
-uniform vec3 scale;
 uniform vec3 position;
+uniform vec3 rotation;
+uniform vec3 scale;
+uniform vec3 pivot;
 
 uniform float angle;
 
 void main() {
-    float   newposx = (offset.x * scale.x) + position.x;
-    float   newposy = (offset.y * scale.y) + position.y;
-    float   newposz = (offset.z * scale.z) + position.z;
-    vec3    newpos = vec3(newposx, newposy, newposz);
+    
+    vec3 scaledOffset = offset * scale;
 
-    // Apply rotation transformation
-    float x_rotated = newposx * cos(angle) - newposy * sin(angle);
-    float y_rotated = newposx * sin(angle) + newposy * cos(angle);
+    vec3 relativePosition = scaledOffset + pivot;
 
-    newpos.x = x_rotated;
-    newpos.y = y_rotated;
+    float rotatedx = relativePosition.x * cos(angle) - relativePosition.y * sin(angle);
+    float rotatedy = relativePosition.x * sin(angle) + relativePosition.y * cos(angle);
+    float rotatedy = relativePosition.x * sin(angle) + relativePosition.y * cos(angle);
+
+    vec3    newpos = vec3(rotatedx, rotatedy, rotatedz) + position;
+    
     gl_Position = vec4(newpos, 1.0);
 }
