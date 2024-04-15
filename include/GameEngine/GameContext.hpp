@@ -35,7 +35,7 @@ public:
 	GameContext &WindowHint(int hint, int value);
 	GameContext	&OpenNewWindow(int width, int height, std::string title);
 	GameContext	&WinSetViewPort(GLint x, GLint y, GLsizei width, GLsizei height);
-	GameContext	&WinSetClearColor(GLchar red, GLchar green, GLchar blue, GLchar alpha);
+	GameContext	&WinSetClearColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
 };
 
 #endif

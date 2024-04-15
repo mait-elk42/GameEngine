@@ -19,6 +19,7 @@
 #include <GameEngine/Shader.hpp>
 #include <GameEngine/VAO.hpp>
 #include <GameEngine/VBO.hpp>
+#include <GameEngine/Vector3.hpp>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 

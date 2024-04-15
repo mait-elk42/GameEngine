@@ -12,53 +12,45 @@
 
 #include <GameEngine/GameEngine.hpp>
 
-typedef struct s_vector3f
-{
-	float	x = 0.0f;
-	float	y = 0.0f;
-	float	z = 0.0f;
-}	t_vector3f;
+#define W 1200
+#define H 700
 
 GLuint textureID; // Texture ID
 
 // Load texture function
-void loadTexture(const char* texturePath) {
-    int width, height, channels;
-    unsigned char* data = stbi_load(texturePath, &width, &height, &channels, 0);
-    
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
-    // Set texture parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // Transfer texture data to GPU
-    if (data) {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    } else {
-        printf("Failed to load texture\n");
-    }
-    
-    stbi_image_free(data);
-}
+// void loadTexture(const char* texturePath) {
+//     int width, height, channels;
+//     unsigned char* data = stbi_load(texturePath, &width, &height, &channels, 0);
+//     glGenTextures(1, &textureID);
+//     glBindTexture(GL_TEXTURE_2D, textureID);
+//     // Set texture parameters
+//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//     // Transfer texture data to GPU
+//     if (data) {
+//         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+//         glGenerateMipmap(GL_TEXTURE_2D);
+//     } else {
+//         printf("Failed to load texture\n");
+//     }
+//     stbi_image_free(data);
+// }
 
 int main()
 {
 	GameContext context;
 	ShaderProgram shader_program;
-	VAO vao;
-	VBO vbo;
+	VAO vao, vao2;
+	VBO vbo, vbo2;
 
 	context.Init()
 		.WindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3)
 		.WindowHint(GLFW_CONTEXT_VERSION_MINOR, 3)
 		.WindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE)
 		// .WindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, 1) // Transparent Window :0
-		.OpenNewWindow(800, 600, "Game Engine")
+		.OpenNewWindow(W, H, "Game Engine")
 		.WinSetClearColor(127, 127, 127, 255);
 	shader_program.Create()
 		.AttachShaderFromFile(GL_VERTEX_SHADER, "Shaders/vert.glsl")
@@ -76,11 +68,17 @@ int main()
 		.InitBuffer(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW)
 		.SendData(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid *)0);
 
-	t_vector3f objpos = { 0.3f, 0.1f, 0.0f };
-	t_vector3f objscale = { 3.0f, 3.0f, 3.0f };
-	t_vector3f objpivot = { 0.0f, -0.05f, 0.0f };
+	vao2.Generate(1).Bind();
+	vbo2	.Generate(1).Bind(GL_ARRAY_BUFFER)
+		.InitBuffer(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW)
+		.SendData(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid *)0);
+	
+	Vector3 objpos = { 0.3f, 0.1f, 0.0f };
+	Vector3 objscale = { 1.0f, 1.0f, 1.0f };
+	Vector3 objpivot = { 0.0f, -0.05f, 0.0f };
 
-	loadTexture("t.jpg"); // trying To Add Texture In My Triangle
+	context.WinSetViewPort(0, 0, W * 2, H * 2);
+	// loadTexture("t.jpg"); // trying To Add Texture In My Triangle
 	while(context.Window_Is_Alive())
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -92,6 +90,8 @@ int main()
 		objpos.x -= 0.01f * (context.KeyStatus(GLFW_KEY_A));
 		objpos.y += 0.01f * (context.KeyStatus(GLFW_KEY_W));
 		objpos.y -= 0.01f * (context.KeyStatus(GLFW_KEY_S));
+		if (context.KeyStatus(GLFW_KEY_ESCAPE))
+			break;
 		context.WindowSwapBuffers();
 		glfwPollEvents();
 	}

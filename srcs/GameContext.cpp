@@ -32,12 +32,12 @@ GameContext &GameContext::WindowSwapBuffers()
 	return (*this);
 }
 
-GameContext	&GameContext::WinSetClearColor(GLchar red, GLchar green, GLchar blue, GLchar alpha)
+GameContext	&GameContext::WinSetClearColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
 {
-	GLfloat	redNormalized = (GLfloat) ((unsigned char)red) / 255.0f;
-	GLfloat	greenNormalized = (GLfloat) ((unsigned char)green) / 255.0f;
-	GLfloat	blueNormalized = (GLfloat) ((unsigned char)blue) / 255.0f;
-	GLfloat	alphaNormalized = (GLfloat) ((unsigned char)alpha) / 255.0f;
+	GLfloat	redNormalized = (GLfloat) red / 255.0f;
+	GLfloat	greenNormalized = (GLfloat) green / 255.0f;
+	GLfloat	blueNormalized = (GLfloat) blue / 255.0f;
+	GLfloat	alphaNormalized = (GLfloat) alpha / 255.0f;
 
     glClearColor(redNormalized, greenNormalized, blueNormalized, alphaNormalized);
     return (*this);
@@ -64,7 +64,6 @@ GameContext &GameContext::OpenNewWindow(int width, int height, std::string title
         LOG ("Failed to initialise GLAD :(");
     }
 	LOG("\033[32m""GLAD INITIALIZED :)""\033[0m");
-	WinSetViewPort(0, 0, width, height);
 	return (*this);
 }
 
