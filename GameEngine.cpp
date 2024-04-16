@@ -78,6 +78,8 @@ int main()
 	Vector3 objpivot = { 0.0f, -0.05f, 0.0f };
 
 	context.WinSetViewPort(0, 0, W * 2, H * 2);
+
+	float angle = 0.0f;
 	// loadTexture("t.jpg"); // trying To Add Texture In My Triangle
 	while(context.Window_Is_Alive())
 	{
@@ -85,11 +87,14 @@ int main()
 		glUniform3f(glGetUniformLocation(shader_program, "position"), objpos.x, objpos.y, objpos.z);
 		glUniform3f(glGetUniformLocation(shader_program, "scale"), objscale.x, objscale.y, objscale.z);
 		glUniform3f(glGetUniformLocation(shader_program, "pivot"), objpivot.x, objpivot.y, objpivot.z);
+		glUniform1f(glGetUniformLocation(shader_program, "angle"), angle);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 		objpos.x += 0.01f * (context.KeyStatus(GLFW_KEY_D));
 		objpos.x -= 0.01f * (context.KeyStatus(GLFW_KEY_A));
 		objpos.y += 0.01f * (context.KeyStatus(GLFW_KEY_W));
 		objpos.y -= 0.01f * (context.KeyStatus(GLFW_KEY_S));
+
+		angle -= 0.1f;
 		if (context.KeyStatus(GLFW_KEY_ESCAPE))
 			break;
 		context.WindowSwapBuffers();
