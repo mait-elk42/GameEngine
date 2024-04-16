@@ -13,6 +13,23 @@
 #ifndef GAME_ENGINE_HPP
 #define GAME_ENGINE_HPP
 
+
+template<typename T>
+class Vector3 {
+private:
+	T x;
+	T y;
+	T z;
+public:
+	Vector3();
+	~Vector3();
+};
+
+void f()
+{
+	Vector3<float> v;
+}
+
 #include <iostream>
 #include <string>
 #include <GameEngine/GameContext.hpp>
