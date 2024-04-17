@@ -80,3 +80,14 @@ ShaderProgram::operator GLuint()
 {
 	return (this->program);
 }
+
+ShaderProgram	&ShaderProgram::SendUniformF(int location, Vector3 v3)
+{
+	glUniform3f(location, v3.x, v3.y, v3.z);
+	return (*this);
+}
+
+GLint			ShaderProgram::GetUniformLocation(std::string name)
+{
+	return (glGetUniformLocation(this->program, name.c_str()));
+}

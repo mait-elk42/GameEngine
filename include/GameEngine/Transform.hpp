@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Vector3.hpp                                        :+:      :+:    :+:   */
+/*   Transform.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-elk <mait-elk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 11:17:19 by mait-elk          #+#    #+#             */
-/*   Updated: 2024/04/17 13:05:53 by mait-elk         ###   ########.fr       */
+/*   Created: 2024/04/17 09:13:24 by mait-elk          #+#    #+#             */
+/*   Updated: 2024/04/17 13:07:40 by mait-elk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR3_HPP
-#define VECTOR3_HPP
+#ifndef TRANSFORM_HPP
+#define TRANSFORM_HPP
+#include <GameEngine/Vector3.hpp>
 
-class Vector3 {
+class Transform{
+private:
 public:
-	float x;
-	float y;
-	float z;
-	Vector3();
-	Vector3(float x, float y, float z);
-	void operator +=(Vector3 v);
-	~Vector3();
+	Vector3 position;
+	Vector3 rotation;
+	Vector3 scale;
+	Vector3 pivot;
+	Transform();
+	Transform(Vector3 position, Vector3 rotation, Vector3 scale, Vector3 pivot);
+	~Transform();
 };
 
 #endif

@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Vector3.hpp                                        :+:      :+:    :+:   */
+/*   Vector2.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-elk <mait-elk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 11:17:19 by mait-elk          #+#    #+#             */
-/*   Updated: 2024/04/17 13:05:53 by mait-elk         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:07:33 by mait-elk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR3_HPP
-#define VECTOR3_HPP
+#include <GameEngine/Vector2.hpp>
 
-class Vector3 {
-public:
-	float x;
-	float y;
-	float z;
-	Vector3();
-	Vector3(float x, float y, float z);
-	void operator +=(Vector3 v);
-	~Vector3();
-};
+Vector2::Vector2()
+{
 
-#endif
+}
+
+Vector2::Vector2(float x, float y)
+{
+	this->x = x;
+	this->y = y;
+}
+
+void Vector2::operator +=(Vector2 v)
+{
+	this->x += v.x;
+	this->y += v.y;
+}
+
+Vector2::~Vector2()
+{
+
+}

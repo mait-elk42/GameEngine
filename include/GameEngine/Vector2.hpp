@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Vector3.hpp                                        :+:      :+:    :+:   */
+/*   Vector2.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-elk <mait-elk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 11:17:19 by mait-elk          #+#    #+#             */
-/*   Updated: 2024/04/17 13:05:53 by mait-elk         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:07:22 by mait-elk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR3_HPP
-#define VECTOR3_HPP
+#ifndef VECTOR2_HPP
+#define VECTOR2_HPP
 
-class Vector3 {
+class Vector2 {
 public:
 	float x;
 	float y;
-	float z;
-	Vector3();
-	Vector3(float x, float y, float z);
-	void operator +=(Vector3 v);
-	~Vector3();
+	Vector2();
+	Vector2(float x, float y);
+	void operator +=(Vector2 v);
+	~Vector2();
 };
 
 #endif

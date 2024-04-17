@@ -77,3 +77,29 @@ int			GameContext::KeyStatus(int key)
 {
 	return (glfwGetKey(this->window_ptr, key));
 }
+
+GLFWwindow *GameContext::GetWindowPtr()
+{
+	return (this->window_ptr);
+}
+
+Vector2 GameContext::GetMousePosition()
+{
+	double x, y;
+	glfwGetCursorPos(this->window_ptr, &x, &y);
+	return ((Vector2){(float)x, (float)y});
+}
+
+Vector2	GameContext::GetWinSize()
+{
+	int x, y;
+	glfwGetWindowSize(this->window_ptr, &x, &y);
+	return ((Vector2){(float)x, (float)y});
+}
+
+Vector2		GameContext::GetFrameBufferSize()
+{
+	int x, y;
+	glfwGetFramebufferSize(this->window_ptr, &x, &y);
+	return ((Vector2){(float)x, (float)y});
+}

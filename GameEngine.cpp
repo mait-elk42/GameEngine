@@ -12,6 +12,8 @@
 
 #include <GameEngine/GameEngine.hpp>
 
+
+#error YOU SHOULD FIX MOUSE AXIS, PROJECTION , TRIANGLE AXIS
 #define W 1200
 #define H 700
 
@@ -42,14 +44,14 @@ int main()
 {
 	GameContext context;
 	ShaderProgram shader_program;
-	VAO vao, vao2;
-	VBO vbo, vbo2;
+	VAO vao;
+	VBO vbo;
 
 	context.Init()
 		.WindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3)
 		.WindowHint(GLFW_CONTEXT_VERSION_MINOR, 3)
 		.WindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE)
-		// .WindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, 1) // Transparent Window :0
+		.WindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, 1) // Transparent Window :0
 		.OpenNewWindow(W, H, "Game Engine")
 		.WinSetClearColor(127, 127, 127, 255);
 	shader_program.Create()
@@ -59,46 +61,46 @@ int main()
 	
 
 	GLfloat vertices[] = {
-		0.0f, 0.1f, 0.0f,  // Top
-		0.1f, 0.0f, 0.0f,  // Bottom Right
-	   -0.1f, 0.0f, 0.0f,  // Bottom Left
-
-	   0.0f, 0.1f, 0.0f,  // Top
-		-0.1f, 0.0f, 0.0f,  // Bottom Right
-	   0.05f, 0.0f, 0.0f,  // Bottom Left
+		0.0f, 100.0f, 0.0f,  // Top
+		100.0f, 0.0f, 0.0f,  // Bottom Right
+	   -100.0f, 0.0f, 0.0f,  // Bottom Left
 	};
 	vao.Generate(1).Bind();
 	vbo	.Generate(1).Bind(GL_ARRAY_BUFFER)
 		.InitBuffer(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW)
 		.SendData(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid *)0);
 
-	vao2.Generate(1).Bind();
-	vbo2	.Generate(1).Bind(GL_ARRAY_BUFFER)
-		.InitBuffer(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW)
-		.SendData(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid *)0);
-	
-	Vector3 objpos = { 0.3f, 0.1f, 0.0f };
-	Vector3 objrot = { 0.0f, 0.0f, 0.0f };
-	Vector3 objscale = { 1.0f, 1.0f, 1.0f };
-	Vector3 objpivot = { 0.0f, -0.05f, 0.0f };
+	GameObject obj;
+	Transform &t = obj.transform;
+	t.pivot = { 0.0f, -0.05f, 0.0f };
+	t.position = {0.0f, 0.0f, 0.0f};
 
-	context.WinSetViewPort(0, 0, W * 2, H * 2);
+	// Vector3 projection = context.GetWinSize();
+	Vector3 projection = {W, H, 1.0f};
 
 	// loadTexture("t.jpg"); // trying To Add Texture In My Triangle
 	while(context.Window_Is_Alive())
 	{
+		Vector2 fbs = context.GetFrameBufferSize();
+		context.WinSetViewPort(0, 0, fbs.x, fbs.y);
+		if (context.KeyStatus(GLFW_KEY_D) || context.KeyStatus(GLFW_KEY_A) || context.KeyStatus(GLFW_KEY_W) || context.KeyStatus(GLFW_KEY_S))
+			LOG(t.position.x << ":" << t.position.y);
+		t.position += {3.0f * context.KeyStatus(GLFW_KEY_D) + 3.0f * -context.KeyStatus(GLFW_KEY_A),
+							   3.0f * context.KeyStatus(GLFW_KEY_W) + 3.0f * -context.KeyStatus(GLFW_KEY_S),
+								0.0f};
 		glClear(GL_COLOR_BUFFER_BIT);
-		glUniform3f(glGetUniformLocation(shader_program, "position"), objpos.x, objpos.y, objpos.z);
-		glUniform3f(glGetUniformLocation(shader_program, "rotation"), objrot.x, objrot.y, objrot.z);
-		glUniform3f(glGetUniformLocation(shader_program, "scale"), objscale.x, objscale.y, objscale.z);
-		glUniform3f(glGetUniformLocation(shader_program, "pivot"), objpivot.x, objpivot.y, objpivot.z);
+		if (glfwGetMouseButton(context.GetWindowPtr(), GLFW_MOUSE_BUTTON_LEFT))
+		{
+			Vector2 mp = context.GetMousePosition();
+			mp.y = -mp.y;
+			LOG("MPX: " << mp.x << " : MPY: " << mp.y << "\t POSX : " << t.position.x << " : POSY :" << t.position.y);
+		}
+		shader_program.SendUniformF(shader_program.GetUniformLocation("position"), t.position);
+		shader_program.SendUniformF(shader_program.GetUniformLocation("rotation"), t.rotation);
+		shader_program.SendUniformF(shader_program.GetUniformLocation("scale"), t.scale);
+		shader_program.SendUniformF(shader_program.GetUniformLocation("pivot"), t.pivot);
+		glUniform3f(glGetUniformLocation(shader_program, "projection"), projection.x, projection.y, projection.z);
         glDrawArrays(GL_TRIANGLES, 0, 3);
-		objpos.x += 0.01f * (context.KeyStatus(GLFW_KEY_D));
-		objpos.x -= 0.01f * (context.KeyStatus(GLFW_KEY_A));
-		objpos.y += 0.01f * (context.KeyStatus(GLFW_KEY_W));
-		objpos.y -= 0.01f * (context.KeyStatus(GLFW_KEY_S));
-
-		objrot.z += ((context.KeyStatus(GLFW_KEY_LEFT) * 0.1f) + (context.KeyStatus(GLFW_KEY_RIGHT) * -0.1f));
 		if (context.KeyStatus(GLFW_KEY_ESCAPE))
 			break;
 		context.WindowSwapBuffers();

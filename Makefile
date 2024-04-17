@@ -15,7 +15,10 @@ CC= c++
 # CC= /mnt/c/MinGW/bin/c++.exe // TMP 
 CFLAGS= -std=c++11 -I $(INC) 
 INC = include/
-SRCS= srcs/glad.cpp srcs/GameContext.cpp srcs/Shader.cpp srcs/VAO.cpp srcs/VBO.cpp srcs/Vector3.cpp 
+SRCS=	srcs/glad.cpp srcs/GameContext.cpp srcs/Shader.cpp \
+		srcs/VAO.cpp srcs/VBO.cpp \
+		srcs/Vector3.cpp srcs/Vector2.cpp \
+		srcs/Transform.cpp srcs/GameObject.cpp 
 SRCS_O= $(SRCS:.cpp=.bin)
 LIBS= 
 NAME= GameEngine

@@ -16,6 +16,8 @@
 #define LOG(v) std::cout << v << std::endl;
 
 #include <GameEngine/Shader.hpp>
+#include <GameEngine/Vector2.hpp>
+#include <GameEngine/Vector3.hpp>
 #include <iostream>
 #include <string>
 
@@ -32,6 +34,10 @@ public:
 	GameContext	&Init();
 	GameContext &WindowSwapBuffers();
 	int			KeyStatus(int key);
+	GLFWwindow	*GetWindowPtr();
+	Vector2		GetMousePosition();
+	Vector2		GetWinSize();
+	Vector2		GetFrameBufferSize();
 	GameContext &WindowHint(int hint, int value);
 	GameContext	&OpenNewWindow(int width, int height, std::string title);
 	GameContext	&WinSetViewPort(GLint x, GLint y, GLsizei width, GLsizei height);

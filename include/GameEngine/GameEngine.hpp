@@ -13,29 +13,15 @@
 #ifndef GAME_ENGINE_HPP
 #define GAME_ENGINE_HPP
 
-
-template<typename T>
-class Vector3 {
-private:
-	T x;
-	T y;
-	T z;
-public:
-	Vector3();
-	~Vector3();
-};
-
-void f()
-{
-	Vector3<float> v;
-}
-
 #include <iostream>
 #include <string>
 #include <GameEngine/GameContext.hpp>
 #include <GameEngine/Shader.hpp>
 #include <GameEngine/VAO.hpp>
 #include <GameEngine/VBO.hpp>
+#include <GameEngine/GameObject.hpp>
+#include <GameEngine/Transform.hpp>
+#include <GameEngine/Vector2.hpp>
 #include <GameEngine/Vector3.hpp>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>

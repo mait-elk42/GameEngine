@@ -19,6 +19,7 @@
 
 #define LOG(v) std::cout << v << std::endl;
 
+#include <GameEngine/Vector3.hpp>
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
@@ -32,6 +33,8 @@ public:
 	ShaderProgram 	&Create();
 	ShaderProgram	&AttachShader(GLuint ShaderType, std::string source_code);
 	ShaderProgram	&AttachShaderFromFile(GLuint ShaderType, std::string filename);
+	ShaderProgram	&SendUniformF(int location, Vector3 v3);
+	GLint			GetUniformLocation(std::string name);
 	void 			Use();
 };
 
